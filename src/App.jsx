@@ -1,12 +1,22 @@
 import React from "react";
 import "./index.css";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Sign_In from "./pages/Sign_In";
+import Sign_Out from "./pages/Sign_Out";
+import Profile from "./pages/Profile";
 function App() {
   return (
-    <>
-      <h1 className="text-orange-600">HELLO</h1>
-      <div className="h-16 w-16 bg-slate-800"></div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/sign-in" element={<Sign_In />} />
+        <Route path="/sign-out" element={<Sign_Out />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
