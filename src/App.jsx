@@ -7,11 +7,12 @@ import Sign_In from "./pages/Sign_In";
 import Sign_Out from "./pages/Sign_Out";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
+import { Link } from "react-router-dom";
 function App() {
   return (
     <>
-      <Header />
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
