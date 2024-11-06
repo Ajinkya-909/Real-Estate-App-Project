@@ -82,7 +82,7 @@ export default function Sign_Up() {
             Sign In
           </Link>
         </div>
-        <p className="text-red-600 text-lg">{error} </p>
+        <p className="mt-6 text-red-600 text-lg">{error} </p>
       </div>
     </>
   );
