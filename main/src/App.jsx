@@ -4,10 +4,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Sign_In from "./pages/Sign_In";
-import Sign_Out from "./pages/Sign_Out";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
-import { Link } from "react-router-dom";
+import Sign_Up from "./pages/Sign_Up";
 function App() {
   return (
     <>
@@ -17,7 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/sign-in" element={<Sign_In />} />
-          <Route path="/sign-out" element={<Sign_Out />} />
+          <Route path="/sign-up" element={<Sign_Up />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>

@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #f7f3eb;
+}
+.glass-effect {
+  backdrop-filter: blur("20px");
+  -webkit-backdrop-filter: blur(20px);
+}
