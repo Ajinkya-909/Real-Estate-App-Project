@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 export default function Sign_Up() {
+  const navigate = useNavigate();
+
   const [formdata, setformdata] = useState({});
   const [error, seterror] = useState(null);
   const [loding, setLoding] = useState(false);
@@ -20,15 +22,17 @@ export default function Sign_Up() {
       });
       const data = await res.json();
       setLoding(false);
-      seterror(null);
       if (data.success === false) {
         setLoding(false);
         seterror(data.message);
         return;
       }
+      if (data.status === 201) {
+        navigate("/sign-in");
+      }
     } catch (error) {
       setLoding(false);
-      seterror(data.message);
+      seterror(error);
     }
   };
   const HandleChange = (e) => {
@@ -37,7 +41,6 @@ export default function Sign_Up() {
       [e.target.id]: e.target.value,
     });
   };
-  console.log(formdata);
   return (
     <>
       <div className="h-2/5 w-2/5 max-500px:w-full m-auto p-4 ">
