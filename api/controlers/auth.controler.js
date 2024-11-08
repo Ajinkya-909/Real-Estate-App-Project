@@ -9,16 +9,16 @@ export const signup = async (req, res, next) => {
   const newUser = new User({ username, email, password: hashedPassword });
   try {
     await newUser.save();
-    return res.status(201).json(["User Created Successfully"]);
+    return res.status(201).json("User Created Successfully");
   } catch (error) {
     return next(error);
   }
 };
 
 export const signin = async (req, res, next) => {
-  const { user, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const validuser = await User.findOne({ email: user });
+    const validuser = await User.findOne({ email: email });
     if (!validuser) {
       return next(errorHandler(404, "User not Found"));
     }

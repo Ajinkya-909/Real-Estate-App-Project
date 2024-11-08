@@ -1,18 +1,24 @@
 import React from "react";
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../../redux/user/userSlice";
 
 export default function Sign_In() {
   const navigate = useNavigate();
 
   const [formdata, setformdata] = useState({});
-  const [error, seterror] = useState(null);
-  const [success, setsuccess] = useState(null);
-  const [loding, setLoding] = useState(false);
+  const { loading, error } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
 
   const HandleSubmit = async (e) => {
     e.preventDefault(); // to avoid the page to get refreshed.
-    setLoding(true);
+    dispatch(signInStart());
     try {
       const res = await fetch("/api/auth/signin", {
         method: "POST",
@@ -23,16 +29,13 @@ export default function Sign_In() {
       });
       const data = await res.json();
       if (data.success === false) {
-        setLoding(false);
-        seterror(data.message);
+        dispatch(signInFailure(data.message));
         return;
       }
-      setLoding(false);
-      seterror(null);
+      dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
-      setLoding(false);
-      seterror(data.message);
+      dispatch(signInFailure(error.message));
     }
   };
   const HandleChange = (e) => {
@@ -55,7 +58,7 @@ export default function Sign_In() {
             className="relative w-full p-3 bg-gray-200 rounded-xl"
             type="text"
             placeholder="Email"
-            id="user"
+            id="email"
             onChange={HandleChange}
           />
           <input
@@ -66,10 +69,10 @@ export default function Sign_In() {
             onChange={HandleChange}
           />
           <input
-            disabled={loding}
+            disabled={loading}
             className="relative opacity-90 w-full p-3 bg-Gold font-medium text-xlg rounded-xl hover:cursor-pointer hover:opacity-100"
             type="submit"
-            value={loding ? "Loding" : "Sign In"}
+            value={loading ? "Loding" : "Sign In"}
           />
         </form>
         <div className="mt-4 flex gap-4">

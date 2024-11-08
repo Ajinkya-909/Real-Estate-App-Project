@@ -27,9 +27,7 @@ export default function Sign_Up() {
         seterror(data.message);
         return;
       }
-      if (data.status === 201) {
-        navigate("/sign-in");
-      }
+      navigate("/sign-in");
     } catch (error) {
       setLoding(false);
       seterror(error);
