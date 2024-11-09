@@ -23,6 +23,7 @@
     "mongodb": "^6.10.0",
     "mongoose": "^8.8.0",
     "nodemon": "^3.1.7",
-    "react-redux": "^9.1.2"
+    "react-redux": "^9.1.2",
+    "redux-persist": "^6.0.0"
   }
 }
