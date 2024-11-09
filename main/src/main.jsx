@@ -9,7 +9,7 @@ import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <PersistGate losding={null} persisstore={persistor}>
+    <PersistGate losding={null} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>
