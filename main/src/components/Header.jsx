@@ -51,6 +51,7 @@ export default function Header() {
             </Link>
           </ul>
         </nav>
+        <img src={currentUser.avatar} alt="" />
       </header>
     </>
   );
