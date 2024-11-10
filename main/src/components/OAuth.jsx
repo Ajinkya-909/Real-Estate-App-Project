@@ -4,6 +4,7 @@ import { app } from "../firebsae";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import Google from "../assets/Google-svg.svg";
 
 export default function OAuth() {
   const dispatch = useDispatch();
@@ -25,7 +26,6 @@ export default function OAuth() {
           photo: result.user.photoURL,
         }),
       });
-      console.log(result);
       const data = await res.json();
       dispatch(signInSuccess(data));
       navigate("/");
@@ -40,7 +40,10 @@ export default function OAuth() {
         type="button"
         className="relative opacity-90 w-full p-3 bg-black text-Off_White font-medium text-xlg rounded-xl hover:cursor-pointer hover:opacity-100"
       >
-        Continue with Google
+        <span className="flex justify-center items-center gap-2">
+          <img src={Google} alt="" />
+          Continue with Google
+        </span>
       </button>
     </>
   );

@@ -2,11 +2,15 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "E:\\Coding content\\Real Estate App\\main\\src\\index.css";
+import { useSelector } from "react-redux";
+
 export default function Header() {
   //   Gold: (255,204,24),
   //   Light_Gold: (240,206,96),
   //   Grey: (195,195,195),
   // Off White (normal):#fffaf1
+
+  const { currentUser } = useSelector((state) => state.user);
 
   return (
     <>
@@ -25,22 +29,25 @@ export default function Header() {
               type="text"
             />
           </div>
-          <ul className=" font-semibold gap-10 md:gap-5 flex justify-around items-center list-none ">
+          <ul className=" font-semibold gap-8 md:gap-10 flex justify-around items-center list-none ">
             <Link to="/">
               <li className="hover:cursor-pointer  hover:underline ">Home</li>
             </Link>
             <Link to="/about">
               <li className="hover:cursor-pointer  hover:underline ">About</li>
             </Link>
-            <Link to="/profile">
-              <li className="hover:cursor-pointer  hover:underline ">
-                Profile
-              </li>
-            </Link>
-            <Link to="sign-up">
-              <li className="hover:cursor-pointer  hover:underline ">
-                Sign Up
-              </li>
+            <Link to="profile">
+              {currentUser ? (
+                <img
+                  className="rounded-full h-8 w-8 object-cover"
+                  src={currentUser.avatar}
+                  alt="profile"
+                />
+              ) : (
+                <li className="hover:cursor-pointer  hover:underline ">
+                  Sign In
+                </li>
+              )}
             </Link>
           </ul>
         </nav>
