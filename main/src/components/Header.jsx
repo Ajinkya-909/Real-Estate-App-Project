@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="p-3 bg-Off_White glass-effect">
+      <header className="p-3 bg-Off_White ">
         <nav className="flex flex-wrap justify-evenly items-center">
           <Link to="/">
             <h1 className="font-bold font-sans lg:text-2xl md:text-lg xl:3xl sm:text-lg flex flex-wrap">
