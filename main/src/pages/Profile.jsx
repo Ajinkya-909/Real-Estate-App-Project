@@ -6,6 +6,12 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
+  signoutUserStart,
+  signoutUserSuccess,
+  signoutUserFailure,
 } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -42,6 +48,38 @@ export default function Profile() {
       setUpdateSuccess(true);
     } catch (error) {
       dispatch(updateUserFailure(error.message));
+    }
+  };
+
+  const handleDelete = async () => {
+    confirm("Do you want to Delete Account?");
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {}
+    dispatch(deleteUserFailure(error.message));
+  };
+
+  const handleSignOut = async () => {
+    confirm("Do you want to Sign Out?");
+    try {
+      dispatch(signoutUserStart());
+      const res = await fetch("api/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signoutUserFailure(data.message));
+      }
+      dispatch(signoutUserSuccess(data));
+    } catch (error) {
+      dispatch(signoutUserFailure(error.message));
     }
   };
 
@@ -84,10 +122,16 @@ export default function Profile() {
           {loading ? "Loading..." : "Update"}
         </button>
         <div className="p-3 flex justify-between items-center">
-          <span className="text-red-700 cursor-pointer font-medium">
+          <span
+            onClick={handleDelete}
+            className="text-red-700 cursor-pointer font-medium"
+          >
             Delete account
           </span>
-          <span className="text-red-700 cursor-pointer font-medium">
+          <span
+            onClick={handleSignOut}
+            className="text-red-700 cursor-pointer font-medium"
+          >
             Sign Out
           </span>
         </div>
