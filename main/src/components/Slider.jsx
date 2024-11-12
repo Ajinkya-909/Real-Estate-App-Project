@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../index.css";
 import Image1 from "../assets/images/Image1.jpeg";
 import Image2 from "../assets/images/Image2.jpeg";
@@ -9,22 +9,40 @@ import Image6 from "../assets/images/Image6.jpeg";
 import { Link } from "react-router-dom";
 
 export default function Slider() {
-  const [slides, setslides] = useState(1);
+  const [slides, setslides] = useState(0);
   const images = [Image1, Image2, Image3, Image4, Image5, Image6];
   const arrows = [">", "<"];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (slides === images.length - 1) {
+        setslides(0);
+      } else {
+        setslides(slides + 1);
+      }
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [slides]);
 
   const handleNext = () => {
     if (slides === images.length - 1) {
       setslides(0);
+      clearInterval(interval);
     } else {
       setslides(slides + 1);
+      clearInterval(interval);
     }
   };
   const handlePrevious = () => {
-    if (slides === 0) {
+    if (slides < 0) {
       setslides(images.length - 1);
+      clearInterval(interval);
     } else {
       setslides(slides - 1);
+      clearInterval(interval);
     }
   };
   return (
