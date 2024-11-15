@@ -9,9 +9,14 @@ import Image5 from "../assets/images/Image5.jpeg";
 import Image6 from "../assets/images/Image6.jpeg";
 
 export default function CreateListing() {
+  const [SelectedImg, setSelectedImg] = useState([]);
   const imageUrls = [];
   const images = [Image1, Image2, Image3, Image4, Image5, Image6];
+  function handleImages(e) {
+    setSelectedImg(e);
+  }
   const handleClick = (e) => {
+    handleImages(e.target.name);
     if (imageUrls.includes(e.target.id) === true) {
     } else {
       if (imageUrls.length === 3) {
@@ -21,7 +26,8 @@ export default function CreateListing() {
         imageUrls.unshift(e.target.id);
       }
     }
-    console.log(imageUrls);
+    console.log(imageUrls, e.target.name);
+    console.log(SelectedImg);
   };
   return (
     <main className="p-3 max-w-5xl mx-auto">
@@ -127,7 +133,7 @@ export default function CreateListing() {
             <p className="font-semibold ">
               Images:
               <span className="font-normal text-gray-600 ml-2">
-                The first image will be the cover (max 3)
+                This image will be the cover
               </span>
             </p>
             <div className="flex flex-wrap">
@@ -135,9 +141,21 @@ export default function CreateListing() {
                 return (
                   <div
                     key={index}
-                    className="w-1/2 bg-gray-500 max-700px:h-3 max-700px:w-4"
+                    className="w-1/2 bg-gray-400 max-700px:h-3 max-700px:w-4"
                   >
-                    <img onClick={handleClick} src={items} id={items} />
+                    <div
+                      style={{ padding: "3px" }}
+                      className={
+                        SelectedImg.includes(index) ? "bg-green-600" : ""
+                      }
+                    >
+                      <img
+                        onClick={handleClick}
+                        name={index}
+                        src={items}
+                        id={items}
+                      />
+                    </div>
                   </div>
                 );
               })}
