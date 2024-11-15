@@ -20,7 +20,6 @@ export default function Profile() {
   const [formdata, setformdata] = useState({});
   const [UpdateSuccess, setUpdateSuccess] = useState(false);
   const dispatch = useDispatch();
-
   const handleChange = (e) => {
     setformdata({ ...formdata, [e.target.id]: e.target.value });
   };

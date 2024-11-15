@@ -1,64 +1,64 @@
 import { Timestamp } from "mongodb";
 import mongoose from "mongoose";
 
-const listing = new mongoose.Schema(
+const listingSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     description: {
       type: String,
-      require: true,
+      required: true,
     },
     address: {
       type: String,
-      require: true,
+      required: true,
     },
     regularPrize: {
       type: Number,
-      require: true,
+      required: true,
     },
     discountPrize: {
       type: Number,
-      require: true,
+      required: true,
     },
-    bathRooms: {
+    bathrooms: {
       type: Number,
-      require: true,
+      required: true,
     },
-    bedRooms: {
+    bedrooms: {
       type: Number,
-      require: true,
+      required: true,
     },
     furnished: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     parking: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     type: {
       type: String,
-      require: true,
+      required: true,
     },
     offer: {
       type: Boolean,
-      require: true,
+      required: true,
     },
     imageUrls: {
-      type: Array,
-      require: true,
+      type: String,
+      required: true,
     },
     userRef: {
       type: String,
-      require: true,
+      required: true,
     },
   },
   { Timestamp: true }
 );
 
-const Listing = mongoose.model("Listing", listing);
+const Listing = mongoose.model("Listing", listingSchema);
 
 export default Listing;
