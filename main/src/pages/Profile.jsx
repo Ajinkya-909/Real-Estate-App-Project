@@ -1,144 +1,71 @@
 import React from "react";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import Image1 from "../assets/images/Image1.jpeg";
+import "../index.css";
 import { useSelector } from "react-redux";
-import "../../src/index.css";
-import {
-  updateUserStart,
-  updateUserSuccess,
-  updateUserFailure,
-  deleteUserStart,
-  deleteUserSuccess,
-  deleteUserFailure,
-  signoutUserStart,
-  signoutUserSuccess,
-  signoutUserFailure,
-} from "../../redux/user/userSlice";
-import { useDispatch } from "react-redux";
 
 export default function Profile() {
-  const { currentUser, loading, error } = useSelector((state) => state.user);
-  const [formdata, setformdata] = useState({});
-  const [UpdateSuccess, setUpdateSuccess] = useState(false);
-  const dispatch = useDispatch();
-  const handleChange = (e) => {
-    setformdata({ ...formdata, [e.target.id]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}1`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formdata),
-      });
-
-      const data = await res.json();
-      console.log(data);
-      if (data.success === false) {
-        dispatch(updateUserFailure(data.message));
-        setUpdateSuccess(false);
-        return;
-      }
-      dispatch(updateUserSuccess(data));
-      setUpdateSuccess(true);
-    } catch (error) {
-      dispatch(updateUserFailure(error.message));
-    }
-  };
-
-  const handleDelete = async () => {
-    confirm("Do you want to Delete Account?");
-    try {
-      dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(deleteUserFailure(data.message));
-        return;
-      }
-      dispatch(deleteUserSuccess(data));
-    } catch (error) {}
-    dispatch(deleteUserFailure(error.message));
-  };
-
-  const handleSignOut = async () => {
-    confirm("Do you want to Sign Out?");
-    try {
-      dispatch(signoutUserStart());
-      const res = await fetch("api/auth/signout");
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(signoutUserFailure(data.message));
-      }
-      dispatch(signoutUserSuccess(data));
-    } catch (error) {
-      dispatch(signoutUserFailure(error.message));
-    }
-  };
-
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser);
   return (
-    <div className="bg-yellow-200 rounded-3xl mt-6 p-3 max-w-lg mx-auto">
-      <h1 className="text-center font-semibold text-3xl my-7">Profile</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        <img
-          className="self-center rounded-full h-24 w-24 object-cover cursor-pointer"
-          src={currentUser.avatar}
-          alt="photo"
-        />
-        <input
-          type="text"
-          placeholder="User name"
-          className="border rounded-lg p-3"
-          id="username"
-          onChange={handleChange}
-          defaultValue={currentUser.username}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="border rounded-lg p-3"
-          id="email"
-          onChange={handleChange}
-          defaultValue={currentUser.email}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="border rounded-lg p-3"
-          id="password"
-          onChange={handleChange}
-        />
-        <button
-          disabled={loading}
-          className="bg-black p-2 text-Off_White rounded-lg hover:opacity-95 disabled:opacity-85"
-        >
-          {loading ? "Loading..." : "Update"}
-        </button>
-        <div className="p-3 flex justify-between items-center">
-          <span
-            onClick={handleDelete}
-            className="text-red-700 cursor-pointer font-medium"
-          >
-            Delete account
-          </span>
-          <span
-            onClick={handleSignOut}
-            className="text-red-700 cursor-pointer font-medium"
-          >
-            Sign Out
-          </span>
+    <>
+      <div className="overflow-hidden mt-8 bg-black/30 mx-auto w-3/4 h-3/4 flex flex-col justify-around gap-5 p-4 rounded-xl">
+        <h1 className="self-center poppins-semibold text-4xl text-Off_White">
+          Profile
+        </h1>
+        <div className="flex max-700px:flex-col  h-max justify-around p-4 ">
+          <div className="w-3/4 flex justify-center items-center mx-auto">
+            <img
+              className="rounded-full object-cover"
+              src={currentUser.avatar}
+              alt="Image"
+            />
+          </div>
+          <div className="mx-auto">
+            <div className="flex max-500px:flex-col m-4 gap-2">
+              <span className="font-sans max-500px:text-base text-Off_White text-lg">
+                Name:{" "}
+              </span>
+              <span className="poppins-semibold max-500px:text-base text-Off_White text-lg">
+                {currentUser.username}
+              </span>
+            </div>
+            <div className="flex max-500px:flex-col m-4 gap-2">
+              <span className="font-sans max-500px:text-base text-Off_White text-lg">
+                Email:{" "}
+              </span>
+              <span className="poppins-semibold max-500px:text-base text-Off_White text-lg">
+                {currentUser.email}
+              </span>
+            </div>
+          </div>
         </div>
-        <p className="text-red-700 font-semibold">{error ? error : ""}</p>
-        <p className="text-green-700 font-semibold">
-          {UpdateSuccess ? "User Updated Successfully" : ""}
-        </p>
-      </form>
-    </div>
+        <div className="flex justify-around ">
+          <Link
+            to="/create-listing"
+            className="bg-Gold rounded-lg max-500px:text-base text-lg poppins-semibold  p-2 cursor-pointer hover:scale-105 transition"
+          >
+            <button>Create Listing</button>
+          </Link>
+          <Link
+            to="/profile-update"
+            className="bg-black rounded-lg max-500px:text-base text-Off_White text-lg poppins-semibold   p-2 cursor-pointer hover:scale-105 transition"
+          >
+            <button>Update Profile</button>
+          </Link>
+        </div>
+      </div>
+      {/* Background Image */}
+      <div
+        style={{
+          backgroundImage: `url("${currentUser.avatar}")`,
+          filter: "blur(5px)",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+          backgroundRepeat: "no-repeat",
+        }}
+        className=" transition h-screen w-screen absolute inset-0 -z-10 "
+      ></div>
+    </>
   );
 }

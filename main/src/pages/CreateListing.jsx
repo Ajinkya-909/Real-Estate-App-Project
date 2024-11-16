@@ -102,7 +102,6 @@ export default function CreateListing() {
       setloading(false);
     }
   };
-  console.log(currentUser);
   return (
     <main className="p-3 max-w-5xl mx-auto">
       <h1 className="text-3xl font-sans font-semibold text-center my-7">
