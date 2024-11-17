@@ -19,6 +19,7 @@ export default function Profile() {
       const data = await res.json();
       if (data.success === false) {
         setError(true);
+        setLoading(false);
         return;
       }
       setuserListings(data);
@@ -29,7 +30,27 @@ export default function Profile() {
       setLoading(false);
     }
   };
-  console.log(userListings);
+
+  const handleListingDelete = async (listingID) => {
+    console.log(listingID);
+    confirm(`Are you sure you want to delete this listing`);
+    try {
+      const res = await fetch(`/api/listing/delete/${listingID}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data);
+        setError(true);
+        return;
+      }
+
+      setuserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingID)
+      );
+    } catch (error) {}
+  };
+
   return (
     <>
       <div className="overflow-hidden mt-8 bg-black/30 mx-auto w-3/4 h-3/4 flex flex-col justify-around gap-5 p-4 rounded-xl">
@@ -99,42 +120,49 @@ export default function Profile() {
             {Loading ? "Showing..." : "Show Listings"}
           </button>
         </span>
-        <div className="self-center w-4/5 p-2">
-          {userListings.length > 0
-            ? userListings.map((listing, index) => {
-                return (
-                  <div
-                    key={index}
-                    className=" bg-black/20 p-2 border rounded-lg border-gray-600 flex justify-between gap-4  items-center"
+        <div className="self-center text-center w-4/5 p-2">
+          {userListings.length > 0 ? (
+            userListings.map((listing, index) => {
+              return (
+                <div
+                  key={index}
+                  className=" bg-black/20 p-2 border rounded-lg border-gray-600 flex justify-between gap-4  items-center"
+                >
+                  <Link to={`/listing/${listing._id}`}>
+                    <img
+                      src={listing.imageUrls}
+                      alt="Listing Ursl"
+                      className="h-28 w-28 object-contain"
+                    />
+                  </Link>
+                  <Link
+                    className="poppins-semibold truncate text-Off_White flex-1"
+                    to={`/listing/${listing._id}`}
                   >
-                    <Link to={`/listing/${listing._id}`}>
-                      <img
-                        src={listing.imageUrls}
-                        alt="Listing Ursl"
-                        className="h-28 w-28 object-contain"
-                      />
-                    </Link>
-                    <Link
-                      className="poppins-semibold truncate text-Off_White flex-1"
-                      to={`/listing/${listing._id}`}
+                    <p>{listing.name}</p>
+                  </Link>
+                  <div className="flex gap-4 ">
+                    <button
+                      style={{ backgroundColor: "green" }}
+                      className=" p-2 text-Off_White font-semibold rounded-lg"
                     >
-                      <p>{listing.name}</p>
-                    </Link>
-                    <div className="flex gap-4 ">
-                      <button
-                        style={{ backgroundColor: "green" }}
-                        className=" p-2 text-Off_White font-semibold rounded-lg"
-                      >
-                        Edit
-                      </button>
-                      <button className="bg-red-600 p-2 text-Off_White font-semibold rounded-lg">
-                        Delete
-                      </button>
-                    </div>
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleListingDelete(listing._id)}
+                      className="bg-red-600 p-2 text-Off_White font-semibold rounded-lg"
+                    >
+                      Delete
+                    </button>
                   </div>
-                );
-              })
-            : ""}
+                </div>
+              );
+            })
+          ) : (
+            <p className="text-white bg-black/50">
+              You Don't have any Listings
+            </p>
+          )}
         </div>
         <span
           style={{ alignSelf: "center" }}
@@ -158,7 +186,9 @@ export default function Profile() {
             <pre>Don't Show Listings</pre>
           </button>
         </span>
-        <p>{Error ? "Error in showing listing" : ""}</p>
+        <p className="self-center text-red-700 font-bold text-base">
+          {Error ? "Error in showing listing" : ""}
+        </p>
       </div>
       {/* Background Image */}
       <div
