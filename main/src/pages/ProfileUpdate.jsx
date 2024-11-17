@@ -28,7 +28,7 @@ export default function Profile() {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}1`, {
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -123,13 +123,13 @@ export default function Profile() {
         <div className="p-3 flex justify-between items-center">
           <span
             onClick={handleDelete}
-            className="text-red-700 cursor-pointer font-medium"
+            className="text-white rounded-lg font-semibold p-2 bg-red-600 cursor-pointer font-sans"
           >
             Delete account
           </span>
           <span
             onClick={handleSignOut}
-            className="text-red-700 cursor-pointer font-medium"
+            className="text-white rounded-lg font-semibold p-2 bg-red-600 cursor-pointer font-sans"
           >
             Sign Out
           </span>

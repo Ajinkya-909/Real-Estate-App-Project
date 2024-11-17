@@ -102,6 +102,7 @@ export default function CreateListing() {
       setloading(false);
     }
   };
+
   return (
     <main className="p-3 max-w-5xl mx-auto">
       <h1 className="text-3xl font-sans font-semibold text-center my-7">
@@ -115,11 +116,11 @@ export default function CreateListing() {
           <div className="flex flex-col gap-4 flex-1">
             <input
               type="text"
-              placeholder="Name"
+              placeholder="Name of Property"
               className="border p-3 rounded-lg "
               id="name"
               maxLength="60"
-              minLength="10"
+              minLength="5"
               required
               onChange={handleChange}
               defaultValue={formData.name}
@@ -225,7 +226,7 @@ export default function CreateListing() {
                 <input
                   className="p-3 border border-gray-300 rounded-lg "
                   type="number"
-                  id="regularprize"
+                  id="regularPrize"
                   min="500"
                   max="1000000"
                   required
@@ -239,7 +240,7 @@ export default function CreateListing() {
                   <input
                     className="p-3 border border-gray-300 rounded-lg "
                     type="number"
-                    id="discountprize"
+                    id="discountPrize"
                     min="0"
                     max="1000000"
                     required

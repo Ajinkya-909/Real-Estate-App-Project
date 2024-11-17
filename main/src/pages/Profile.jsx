@@ -1,20 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Image1 from "../assets/images/Image1.jpeg";
 import "../index.css";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Profile() {
+  const [ShowListing, setShowListing] = useState(false);
+  const [Loading, setLoading] = useState(false);
+  const [userListings, setuserListings] = useState([]);
+  const [Error, setError] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
+  const showListing = () => {};
+  const handleShowListing = async () => {
+    setError(false);
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+      if (data.success === false) {
+        setError(true);
+        return;
+      }
+      setuserListings(data);
+      setLoading(false);
+      setShowListing(true);
+    } catch (error) {
+      setError(true);
+      setLoading(false);
+    }
+  };
+  console.log(userListings);
   return (
     <>
       <div className="overflow-hidden mt-8 bg-black/30 mx-auto w-3/4 h-3/4 flex flex-col justify-around gap-5 p-4 rounded-xl">
         <h1 className="self-center poppins-semibold text-4xl text-Off_White">
           Profile
         </h1>
-        <div className="flex max-700px:flex-col  h-max justify-around p-4 ">
-          <div className="w-3/4 flex justify-center items-center mx-auto">
+        <div className="flex max-700px:flex-col items-center h-max justify-around p-4 ">
+          <div className="w-1/4 max-500px:w-3/4 flex justify-center items-center mx-auto">
             <img
               className="rounded-full object-cover"
               src={currentUser.avatar}
@@ -22,7 +45,7 @@ export default function Profile() {
             />
           </div>
           <div className="mx-auto">
-            <div className="flex max-500px:flex-col m-4 gap-2">
+            <div className="flex max-500px:flex-col m-4 gap-2 truncate">
               <span className="font-sans max-500px:text-base text-Off_White text-lg">
                 Name:{" "}
               </span>
@@ -30,7 +53,7 @@ export default function Profile() {
                 {currentUser.username}
               </span>
             </div>
-            <div className="flex max-500px:flex-col m-4 gap-2">
+            <div className="flex max-500px:flex-col m-4 gap-2 truncate">
               <span className="font-sans max-500px:text-base text-Off_White text-lg">
                 Email:{" "}
               </span>
@@ -49,11 +72,93 @@ export default function Profile() {
           </Link>
           <Link
             to="/profile-update"
-            className="bg-black rounded-lg max-500px:text-base text-Off_White text-lg poppins-semibold   p-2 cursor-pointer hover:scale-105 transition"
+            className="bg-black rounded-lg max-500px:text-base text-Off_White text-lg poppins-semibold  p-2 cursor-pointer hover:scale-105 transition"
           >
             <button>Update Profile</button>
           </Link>
         </div>
+        <h1 className="mt-2 self-center text-Off_White poppins-semibold text-3xl ">
+          Your Listings
+        </h1>
+        <span
+          style={{ alignSelf: "center" }}
+          className={ShowListing ? "hidden" : "inline"}
+        >
+          <button
+            style={{
+              backgroundColor: "green",
+            }}
+            onClick={handleShowListing}
+            type="button"
+            className={
+              Loading
+                ? " hover:scale-105 transition font-sans font-semibold text-lg text-white p-3  rounded-lg pointer-events-none"
+                : " hover:scale-105 transition font-sans font-semibold text-lg text-white p-3  rounded-lg"
+            }
+          >
+            {Loading ? "Showing..." : "Show Listings"}
+          </button>
+        </span>
+        <div className="self-center w-4/5 p-2">
+          {userListings.length > 0
+            ? userListings.map((listing, index) => {
+                return (
+                  <div
+                    key={index}
+                    className=" bg-black/20 p-2 border rounded-lg border-gray-600 flex justify-between gap-4  items-center"
+                  >
+                    <Link to={`/listing/${listing._id}`}>
+                      <img
+                        src={listing.imageUrls}
+                        alt="Listing Ursl"
+                        className="h-28 w-28 object-contain"
+                      />
+                    </Link>
+                    <Link
+                      className="poppins-semibold truncate text-Off_White flex-1"
+                      to={`/listing/${listing._id}`}
+                    >
+                      <p>{listing.name}</p>
+                    </Link>
+                    <div className="flex gap-4 ">
+                      <button
+                        style={{ backgroundColor: "green" }}
+                        className=" p-2 text-Off_White font-semibold rounded-lg"
+                      >
+                        Edit
+                      </button>
+                      <button className="bg-red-600 p-2 text-Off_White font-semibold rounded-lg">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
+            : ""}
+        </div>
+        <span
+          style={{ alignSelf: "center" }}
+          className={ShowListing ? "mt-4 inline" : "mt-4 hidden"}
+        >
+          <button
+            style={{
+              backgroundColor: "red",
+            }}
+            onClick={() => {
+              setuserListings([]);
+              setShowListing(false);
+            }}
+            type="button"
+            className={
+              Loading
+                ? " hover:scale-105 transition font-sans font-semibold text-lg text-white p-3  rounded-lg pointer-events-none"
+                : " hover:scale-105 transition font-sans font-semibold text-lg text-white p-3  rounded-lg"
+            }
+          >
+            <pre>Don't Show Listings</pre>
+          </button>
+        </span>
+        <p>{Error ? "Error in showing listing" : ""}</p>
       </div>
       {/* Background Image */}
       <div
@@ -64,7 +169,7 @@ export default function Profile() {
           backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
         }}
-        className=" transition h-screen w-screen absolute inset-0 -z-10 "
+        className=" transition h-screen w-full absolute inset-0 -z-10 "
       ></div>
     </>
   );
