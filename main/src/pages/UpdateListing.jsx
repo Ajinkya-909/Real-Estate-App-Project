@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../index.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Image1 from "../assets/images/Image1.jpeg";
 import Image2 from "../assets/images/Image2.jpeg";
 import Image3 from "../assets/images/Image3.jpeg";
@@ -12,14 +12,15 @@ import { useSelector } from "react-redux";
 
 export default function CreateListing() {
   const navigate = useNavigate();
+  const param = useParams();
   const currentUser = useSelector((state) => state.user);
   const [SelectedImg, setSelectedImg] = useState([0]);
-  const [Poster, setPoster] = useState();
+  const [Poster, setPoster] = useState(Image1);
   const [error, seterror] = useState(false);
   const [loading, setloading] = useState(false);
   const images = [Image1, Image2, Image3, Image4, Image5, Image6];
   const [formData, setformData] = useState({
-    imageUrls: Poster,
+    imageUrls: "",
     name: "",
     description: "",
     address: "",
@@ -33,6 +34,25 @@ export default function CreateListing() {
     furnished: false,
   });
 
+  useEffect(() => {
+    const fetchListing = async () => {
+      const listingId = param.listingId;
+      const res = await fetch(`/api/listing/get/${listingId}`);
+      const data = await res.json();
+      if (data.sucecss === false) {
+        seterror(data.message);
+        return;
+      }
+      setformData(data);
+      const poster = data.imageUrls;
+      const [name, extra] = poster.split(".");
+      const image = name.slice(-6);
+
+      setSelectedImg(image);
+    };
+    fetchListing();
+  }, []);
+
   function handleImages(e) {
     setSelectedImg(e);
   }
@@ -42,8 +62,8 @@ export default function CreateListing() {
       ...formData,
       imageUrls: e.target.id,
     });
+    handleChange;
   };
-  console.log(formData);
   const handleChange = (e) => {
     if (e.target.id === "sell" || e.target.id === "rent") {
       setformData({ ...formData, type: e.target.id });
@@ -65,11 +85,6 @@ export default function CreateListing() {
         ...formData,
         [e.target.id]: e.target.value,
       });
-    } else {
-      setformData({
-        ...formData,
-        imageUrls: Poster,
-      });
     }
   };
 
@@ -82,7 +97,7 @@ export default function CreateListing() {
       }
       setloading(true);
       seterror(false);
-      const res = await fetch("/api/listing/create", {
+      const res = await fetch(`/api/listing/update/${param.listingId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -92,12 +107,10 @@ export default function CreateListing() {
       });
       const data = await res.json();
       setloading(false);
-      if (data.success === false) {
+      if (data.sucecss === false) {
         seterror(data.message);
-        return;
       }
-      console.log(data);
-      navigate(`/listing/${data._id}`);
+      navigate(`/listing/${param.listingId}`);
     } catch (error) {
       seterror(error.message);
       setloading(false);
@@ -107,9 +120,8 @@ export default function CreateListing() {
   return (
     <main className="p-3 max-w-5xl mx-auto">
       <h1 className="text-3xl font-sans font-semibold text-center my-7">
-        Creat Listing
+        Update a Listing
       </h1>
-      {error && <p className="text-red-600">{error}</p>}
       <form
         onSubmit={handleSubmit}
         className=" flex flex-col justify-around items-center gap-4"
@@ -291,8 +303,9 @@ export default function CreateListing() {
           type="submit"
           className="mx-auto self-start bg-Gold font-semibold font-sans p-3 rounded-lg hover:opacity-95 disabled:opacity-80"
         >
-          {loading ? "Creating..." : "Create Listing"}
+          {loading ? "Updating..." : "Update Listing"}
         </button>
+        {error && <p className="text-red-600">{error}</p>}
       </form>
     </main>
   );

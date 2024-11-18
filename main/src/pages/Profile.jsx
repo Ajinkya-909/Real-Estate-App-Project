@@ -142,12 +142,14 @@ export default function Profile() {
                     <p>{listing.name}</p>
                   </Link>
                   <div className="flex gap-4 ">
-                    <button
-                      style={{ backgroundColor: "green" }}
-                      className=" p-2 text-Off_White font-semibold rounded-lg"
-                    >
-                      Edit
-                    </button>
+                    <Link to={`/update-listing/${listing._id}`}>
+                      <button
+                        style={{ backgroundColor: "green" }}
+                        className=" p-2 text-Off_White font-semibold rounded-lg"
+                      >
+                        Edit
+                      </button>
+                    </Link>
                     <button
                       onClick={() => handleListingDelete(listing._id)}
                       className="bg-red-600 p-2 text-Off_White font-semibold rounded-lg"
