@@ -2,12 +2,12 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import "../index.css";
 import { useNavigate } from "react-router-dom";
-import Image1 from "../assets/images/Image1.jpeg";
-import Image2 from "../assets/images/Image2.jpeg";
-import Image3 from "../assets/images/Image3.jpeg";
-import Image4 from "../assets/images/Image4.jpeg";
-import Image5 from "../assets/images/Image5.jpeg";
-import Image6 from "../assets/images/Image6.jpeg";
+import Image1 from "../assets/images/Image7.jpeg";
+import Image2 from "../assets/images/Image15.jpg";
+import Image3 from "../assets/images/Image13.webp";
+import Image4 from "../assets/images/Image14.jpeg";
+import Image5 from "../assets/images/Image17.png";
+import Image6 from "../assets/images/Image16.png";
 import { useSelector } from "react-redux";
 
 export default function CreateListing() {
@@ -247,7 +247,7 @@ export default function CreateListing() {
                     max="1000000"
                     required
                     onChange={handleChange}
-                    defaultValue={formData.discountPrizePrize}
+                    defaultValue={formData.discountPrize}
                   />
                   <span>Discounted Prize (INR)</span>
                 </div>
@@ -263,10 +263,10 @@ export default function CreateListing() {
                 This image will be the cover
               </span>
             </p>
-            <div className="flex flex-wrap max-700px:justify-around max-700px:w-full">
+            <div className="flex p-1 bg-gray-400 flex-wrap max-700px:justify-around items-center max-700px:w-full">
               {images.map((items, index) => {
                 return (
-                  <div key={index} className="w-1/2 bg-gray-400 ">
+                  <div key={index} className="w-1/2">
                     <div
                       style={{ padding: "3px" }}
                       className={

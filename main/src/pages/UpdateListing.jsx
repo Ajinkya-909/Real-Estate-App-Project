@@ -2,12 +2,12 @@ import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import "../index.css";
 import { useNavigate, useParams } from "react-router-dom";
-import Image1 from "../assets/images/Image1.jpeg";
-import Image2 from "../assets/images/Image2.jpeg";
-import Image3 from "../assets/images/Image3.jpeg";
-import Image4 from "../assets/images/Image4.jpeg";
-import Image5 from "../assets/images/Image5.jpeg";
-import Image6 from "../assets/images/Image6.jpeg";
+import Image1 from "../assets/images/Image7.jpeg";
+import Image2 from "../assets/images/Image15.jpg";
+import Image3 from "../assets/images/Image13.webp";
+import Image4 from "../assets/images/Image14.jpeg";
+import Image5 from "../assets/images/Image17.png";
+import Image6 from "../assets/images/Image16.png";
 import { useSelector } from "react-redux";
 
 export default function CreateListing() {

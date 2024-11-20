@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../index.css";
 import Image1 from "../assets/images/Image1.jpeg";
-import Image2 from "../assets/images/Image2.jpeg";
+import Image2 from "../assets/images/Image15.jpg";
 import Image3 from "../assets/images/Image3.jpeg";
-import Image4 from "../assets/images/Image4.jpeg";
+import Image4 from "../assets/images/Image16.png";
 import Image5 from "../assets/images/Image5.jpeg";
 import Image6 from "../assets/images/Image6.jpeg";
 import { Link } from "react-router-dom";
@@ -105,13 +105,15 @@ export default function Slider() {
               {arrows[0]}
             </button>
           </div>
-          <div className="p-9 z-10 max-700px:p-0 transition  ">
-            <img
-              className="transition object-contain rounded-xl "
-              src={images[slides]}
-              alt=""
-            />
-          </div>
+          <div
+            style={{
+              backgroundImage: `url(${images[slides]}`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center",
+            }}
+            className="p-9 rounded-lg h-[calc(100vh/1.5)] w-[calc(100vw/2)] z-10 max-700px:p-0 object-contain transition  "
+          ></div>
         </div>
       </div>
     </>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Profile() {
+  const [nolisting, setnolisting] = useState(false);
   const [ShowListing, setShowListing] = useState(false);
   const [Loading, setLoading] = useState(false);
   const [userListings, setuserListings] = useState([]);
@@ -25,6 +26,11 @@ export default function Profile() {
       setuserListings(data);
       setLoading(false);
       setShowListing(true);
+      if (userListings.length === 0) {
+        setnolisting(true);
+      } else {
+        setnolisting(false);
+      }
     } catch (error) {
       setError(true);
       setLoading(false);
@@ -121,50 +127,46 @@ export default function Profile() {
           </button>
         </span>
         <div className="self-center text-center w-4/5 p-2">
-          {userListings.length > 0 ? (
-            userListings.map((listing, index) => {
-              return (
-                <div
-                  key={index}
-                  className=" bg-black/20 p-2 border rounded-lg border-gray-600 flex justify-between gap-4  items-center"
-                >
-                  <Link to={`/listing/${listing._id}`}>
-                    <img
-                      src={listing.imageUrls}
-                      alt="Listing Ursl"
-                      className="h-28 w-28 object-contain"
-                    />
-                  </Link>
-                  <Link
-                    className="poppins-semibold truncate text-Off_White flex-1"
-                    to={`/listing/${listing._id}`}
+          {userListings.length > 0
+            ? userListings.map((listing, index) => {
+                return (
+                  <div
+                    key={index}
+                    className=" bg-black/20 p-2 border rounded-lg border-gray-600 flex justify-between gap-4  items-center"
                   >
-                    <p>{listing.name}</p>
-                  </Link>
-                  <div className="flex gap-4 ">
-                    <Link to={`/update-listing/${listing._id}`}>
-                      <button
-                        style={{ backgroundColor: "green" }}
-                        className=" p-2 text-Off_White font-semibold rounded-lg"
-                      >
-                        Edit
-                      </button>
+                    <Link to={`/listing/${listing._id}`}>
+                      <img
+                        src={listing.imageUrls}
+                        alt="Listing Ursl"
+                        className="h-28 w-28 object-contain"
+                      />
                     </Link>
-                    <button
-                      onClick={() => handleListingDelete(listing._id)}
-                      className="bg-red-600 p-2 text-Off_White font-semibold rounded-lg"
+                    <Link
+                      className="poppins-semibold truncate text-Off_White flex-1"
+                      to={`/listing/${listing._id}`}
                     >
-                      Delete
-                    </button>
+                      <p>{listing.name}</p>
+                    </Link>
+                    <div className="flex gap-4 ">
+                      <Link to={`/update-listing/${listing._id}`}>
+                        <button
+                          style={{ backgroundColor: "green" }}
+                          className=" p-2 text-Off_White font-semibold rounded-lg"
+                        >
+                          Edit
+                        </button>
+                      </Link>
+                      <button
+                        onClick={() => handleListingDelete(listing._id)}
+                        className="bg-red-600 p-2 text-Off_White font-semibold rounded-lg"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            })
-          ) : (
-            <p className="text-white bg-black/50">
-              You Don't have any Listings
-            </p>
-          )}
+                );
+              })
+            : ""}
         </div>
         <span
           style={{ alignSelf: "center" }}
@@ -191,6 +193,13 @@ export default function Profile() {
         <p className="self-center text-red-700 font-bold text-base">
           {Error ? "Error in showing listing" : ""}
         </p>
+        {nolisting ? (
+          <p className="text-white mx-auto bg-black/50">
+            You Don't have any Listings
+          </p>
+        ) : (
+          ""
+        )}
       </div>
       {/* Background Image */}
       <div
