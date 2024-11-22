@@ -90,16 +90,16 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <div className="flex justify-around ">
+        <div className="flex max-500px:flex-col gap-2  justify-around ">
           <Link
             to="/create-listing"
-            className="bg-Gold rounded-lg max-500px:text-base text-lg poppins-semibold  p-2 cursor-pointer hover:scale-105 transition"
+            className="bg-Gold text-center rounded-lg max-500px:text-base text-lg poppins-semibold  p-2 cursor-pointer hover:scale-105 transition"
           >
             <button>Create Listing</button>
           </Link>
           <Link
             to="/profile-update"
-            className="bg-black rounded-lg max-500px:text-base text-Off_White text-lg poppins-semibold  p-2 cursor-pointer hover:scale-105 transition"
+            className="bg-black text-center rounded-lg max-500px:text-base text-Off_White text-lg poppins-semibold  p-2 cursor-pointer hover:scale-105 transition"
           >
             <button>Update Profile</button>
           </Link>

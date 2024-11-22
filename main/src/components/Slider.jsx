@@ -55,8 +55,10 @@ export default function Slider() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
+            position: "absolute",
+            inset: "0px",
           }}
-          className="transition m-3 absolute inset-0 "
+          className={"transition m-3 absolute inset-0 "}
         ></div>
         <div className="z-10 backdrop-blur-xl bg-Off_White/30 rounded-3xl p-3 text-center h-full w-2/5  max-1000px:w-4/5 max-700px:hidden">
           <h2 className="my-2 font-serif font-medium text-3xl">Welcome to</h2>
@@ -112,7 +114,7 @@ export default function Slider() {
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center center",
             }}
-            className="p-9 rounded-lg h-[calc(100vh/1.5)] w-[calc(100vw/2)] z-10 max-700px:p-0 object-contain transition  "
+            className="p-9 rounded-lg max-500px:h-[50vh] max-1000px:w-[80vw] h-[calc(100vh/1.5)] w-[calc(100vw/2)] z-10 max-700px:p-0 object-contain transition  "
           ></div>
         </div>
       </div>
