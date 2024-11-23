@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import search from "../assets/images/icons/search.png";
 import { Link, useNavigate } from "react-router-dom";
 import "E:\\Coding content\\Real Estate App\\main\\src\\index.css";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ export default function Header() {
   //   Light_Gold: (240,206,96),
   //   Grey: (195,195,195),
   // Off White (normal):#fffaf1
+
   const [Search, setSearch] = useState("");
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -38,15 +39,18 @@ export default function Header() {
               <span className="text-black">Estate's</span>
             </h1>
           </Link>
-          <div className="Search">
-            <form onSubmit={handleSubmit}>
+          <div>
+            <form className="flex items-center" onSubmit={handleSubmit}>
               <input
-                className="p-3  rounded-lg font-sans text-gray-900 bg-gray-200 active:border-gray-900"
+                className="p-3 rounded-l-lg font-sans text-gray-900 bg-gray-200 active:border-gray-900"
                 placeholder="Search..."
                 value={Search}
                 onChange={(e) => setSearch(e.target.value)}
                 type="text"
               />
+              <button className="bg-black rounded-r-lg  text-Off_White text-lg font-sans p-2 cursor-pointer">
+                <img className="h-7" src={search} alt="Search" />
+              </button>
             </form>
           </div>
           <ul className=" font-semibold gap-8 md:gap-10 flex justify-around items-center list-none ">
