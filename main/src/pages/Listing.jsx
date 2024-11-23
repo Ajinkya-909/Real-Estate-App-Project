@@ -50,7 +50,9 @@ export default function Listing() {
           <div
             className="self-center h-[calc(100vh/2)] w-[100%]"
             style={{
-              background: `url(${listing.imageUrls}) center no-repeat`,
+              backgroundImage: `url(${listing.imageUrls}) `,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
               backgroundSize: "contain",
             }}
           ></div>
@@ -65,11 +67,12 @@ export default function Listing() {
               <div>
                 {listing.type === "rent" ? (
                   <h1 className="font-sans font-semibold text-4xl ">
-                    Rental value: {listing.regularPrize}Rs
+                    Rental value: {listing.regularPrize.toLocaleString("en-US")}
+                    Rs
                   </h1>
                 ) : (
                   <h1 className="font-sans font-semibold text-4xl ">
-                    Selling at {listing.regularPrize}Rs
+                    Selling at {listing.regularPrize.toLocaleString("en-US")}Rs
                   </h1>
                 )}
               </div>
@@ -88,27 +91,27 @@ export default function Listing() {
             </div>
             <div className="flex flex-wrap flex-col justify-around items-start gap-5">
               <div className="flex gap-2">
-                <img className="w-8" src={location} alt="" srcset="" />
+                <img className="w-8" src={location} alt="" />
                 <p className="text-lg font-semibold text-green-700">
                   {listing.address}
                 </p>
               </div>
               <div className="flex gap-2">
-                <img className="w-8" src={bedroom} alt="" srcset="" />
+                <img className="w-8" src={bedroom} alt="" />
                 <p className="text-lg font-semibold text-green-700">
                   {" "}
                   Bedrooms {listing.bedrooms}
                 </p>
               </div>
               <div className="flex gap-2">
-                <img className="w-8" src={bathroom} alt="" srcset="" />
+                <img className="w-8" src={bathroom} alt="" />
                 <p className="text-lg font-semibold text-green-700">
                   Bathrooms {listing.bathrooms}
                 </p>
               </div>
               {listing.furnished ? (
                 <div className="flex gap-2">
-                  <img className="w-8" src={furnished} alt="" srcset="" />
+                  <img className="w-8" src={furnished} alt="" />
                   <p className="text-lg font-semibold text-green-700">
                     {" "}
                     Furnished Property
@@ -116,7 +119,7 @@ export default function Listing() {
                 </div>
               ) : (
                 <div className="flex gap-2">
-                  <img className="w-8" src={furnished} alt="" srcset="" />
+                  <img className="w-8" src={furnished} alt="" />
                   <p className="text-red-700 font-semibold text-lg">
                     Unfurnished Property
                   </p>
@@ -124,7 +127,7 @@ export default function Listing() {
               )}
               {listing.parking ? (
                 <div className="flex gap-2">
-                  <img className="w-8" src={parking} alt="" srcset="" />
+                  <img className="w-8" src={parking} alt="" />
                   <p className="text-lg font-semibold text-green-700">
                     {" "}
                     Parking Avaliable
@@ -132,7 +135,7 @@ export default function Listing() {
                 </div>
               ) : (
                 <div className="flex gap-2">
-                  <img className="w-8" src={parking} alt="" srcset="" />
+                  <img className="w-8" src={parking} alt="" />
                   <p className="text-red-700 font-semibold text-lg">
                     Parking Not Avaliable
                   </p>

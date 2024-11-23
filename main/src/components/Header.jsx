@@ -48,7 +48,7 @@ export default function Header() {
                 onChange={(e) => setSearch(e.target.value)}
                 type="text"
               />
-              <button className="bg-black rounded-r-lg  text-Off_White text-lg font-sans p-2 cursor-pointer">
+              <button className="bg-Gold rounded-r-lg  text-Off_White text-lg font-sans p-2 cursor-pointer">
                 <img className="h-7" src={search} alt="Search" />
               </button>
             </form>
