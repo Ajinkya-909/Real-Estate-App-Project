@@ -43,7 +43,6 @@ export default function CreateListing() {
       imageUrls: e.target.id,
     });
   };
-  console.log(formData);
   const handleChange = (e) => {
     if (e.target.id === "sell" || e.target.id === "rent") {
       setformData({ ...formData, type: e.target.id });
@@ -105,7 +104,7 @@ export default function CreateListing() {
   };
 
   return (
-    <main className="p-3 max-w-5xl mx-auto">
+    <main className="px-2 max-w-5xl mx-auto">
       <h1 className="text-3xl font-sans font-semibold text-center my-7">
         Creat Listing
       </h1>

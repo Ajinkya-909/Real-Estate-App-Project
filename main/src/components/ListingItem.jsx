@@ -9,7 +9,7 @@ import parking from "../assets/images/icons/no-parking.png";
 
 export default function ListingItem({ listing }) {
   return (
-    <div className="bg-white shadow-md w-full sm:w-[330px] hover:shadow-lg transition overflow-hidden rounded-lg">
+    <div className="bg-white shadow-md w-full sm:w-80 hover:shadow-lg transition overflow-hidden rounded-lg">
       <Link className=" flex flex-col gap-4" to={`/listing/${listing._id}`}>
         <img
           className="h-[320px] sm:h-[220px] w-full object-cover hover:scale-105 transition"

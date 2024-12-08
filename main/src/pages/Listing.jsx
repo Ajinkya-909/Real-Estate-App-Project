@@ -32,7 +32,6 @@ export default function Listing() {
     }
     run();
   }, [params.listingId]);
-  console.log(listing);
   return (
     <>
       {loading ? (
@@ -72,7 +71,8 @@ export default function Listing() {
                   </h1>
                 ) : (
                   <h1 className="font-sans font-semibold text-4xl ">
-                    Selling at {listing.regularPrize.toLocaleString("en-US")}Rs
+                    Sale value: {listing.regularPrize}
+                    Rs
                   </h1>
                 )}
               </div>
