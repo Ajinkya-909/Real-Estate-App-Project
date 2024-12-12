@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../index.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import Profile_Bg from "../assets/images/profile-bg.jpg";
 
 export default function Profile() {
-  const [nolisting, setnolisting] = useState(false);
   const [ShowListing, setShowListing] = useState(false);
   const [Loading, setLoading] = useState(false);
   const [userListings, setuserListings] = useState([]);
   const [Error, setError] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  const showListing = () => {};
+
   const handleShowListing = async () => {
     setError(false);
     setLoading(true);
@@ -26,11 +26,6 @@ export default function Profile() {
       setuserListings(data);
       setLoading(false);
       setShowListing(true);
-      if (userListings.length === 0) {
-        setnolisting(true);
-      } else {
-        setnolisting(false);
-      }
     } catch (error) {
       setError(true);
       setLoading(false);
@@ -193,18 +188,11 @@ export default function Profile() {
         <p className="self-center text-red-700 font-bold text-base">
           {Error ? "Error in showing listing" : ""}
         </p>
-        {nolisting ? (
-          <p className="text-white mx-auto bg-black/50">
-            You Don't have any Listings
-          </p>
-        ) : (
-          ""
-        )}
       </div>
       {/* Background Image */}
       <div
         style={{
-          backgroundImage: `url("${currentUser.avatar}")`,
+          backgroundImage: `url("${currentUser.avatar || Profile_Bg}")`,
           filter: "blur(5px)",
           backgroundSize: "cover",
           backgroundPosition: "center center",

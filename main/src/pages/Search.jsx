@@ -50,8 +50,11 @@ export default function Search() {
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
       setlistings(data);
-
-      setloading(false);
+      if (data.success === false) {
+        return;
+      } else {
+        setloading(false);
+      }
     };
     fetchListings();
   }, [location.search]);
@@ -59,7 +62,7 @@ export default function Search() {
     if (
       e.target.id === "all" ||
       e.target.id === "rent" ||
-      e.target.id === "sale"
+      e.target.id === "sell"
     ) {
       setsidebarData({ ...sidebarData, type: e.target.id });
     }
@@ -138,10 +141,10 @@ export default function Search() {
             <div className="flex gap-2 ">
               <input
                 type="checkbox"
-                id="sale"
+                id="sell"
                 className="w-5"
                 onChange={handleChange}
-                checked={sidebarData.type === "sale"}
+                checked={sidebarData.type === "sell"}
               />
               <span>Sale</span>
             </div>
@@ -206,7 +209,7 @@ export default function Search() {
           {loading && (
             <p className="text-lg text-center text-slate-700">Loading...</p>
           )}
-          {loading && listings.length === 0 && (
+          {listings.length === 0 && (
             <h1 className="text-lg text-center text-slate-700">
               No Listings Found
             </h1>

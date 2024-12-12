@@ -95,7 +95,7 @@ export default function CreateListing() {
         seterror(data.message);
         return;
       }
-      console.log(data);
+
       navigate(`/listing/${data._id}`);
     } catch (error) {
       seterror(error.message);

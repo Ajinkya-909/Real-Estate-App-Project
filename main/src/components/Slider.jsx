@@ -79,7 +79,7 @@ export default function Slider() {
             journey that highlights both the beauty of the estates and the power
             of the technology behind it.
           </p>
-          <div className="max-500px:flex-col flex justify-around p-2 items-center">
+          <div className="max-500px:flex-col gap-2 flex justify-around p-2 items-center">
             <Link to="/sign-up">
               <button className="p-2 bg-Gold rounded-3xl poppins-semibold text-xl text-center ">
                 Try Now!

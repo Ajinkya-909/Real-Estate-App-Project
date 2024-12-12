@@ -18,7 +18,7 @@ export default function Messenger() {
         placeholder="Type Your message here!"
       ></textarea>
       <Link
-        className="bg-black p-3 text-center cursor-pointer text-Off_White font-sans font-semibold"
+        className="bg-black p-3 text-center rounded-lg cursor-pointer text-Off_White font-sans font-semibold"
         to={`mailto:ajinkyadeshmukh8686@gmail.com?subject=Regarding RealEstate Project Review&body=${message}`}
       >
         Send Message
