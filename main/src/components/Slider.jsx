@@ -77,12 +77,12 @@ export default function Slider() {
           </p>
           <div className="max-500px:flex-col gap-2 flex justify-around p-2 items-center">
             <Link to="/sign-up">
-              <button className="p-2 bg-Gold rounded-3xl poppins-semibold text-xl text-center ">
+              <button className="p-2 bg-Gold rounded-lg poppins-semibold text-xl text-center ">
                 Try Now!
               </button>
             </Link>
             <Link to="/about">
-              <button className="p-2 bg-black rounded-3xl text-white poppins-semibold text-xl text-center ">
+              <button className="p-2 bg-black rounded-lg text-white poppins-semibold text-xl text-center ">
                 Learn More . . .
               </button>
             </Link>
