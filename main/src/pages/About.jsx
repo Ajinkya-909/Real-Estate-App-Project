@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Messenger from "../components/messenger";
+import Messenger from "../components/Messenger";
 import Logo from "../assets/images/icons/logo-design.png";
 
 export default function About() {
