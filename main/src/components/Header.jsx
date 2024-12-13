@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import search from "../assets/images/icons/search.png";
 import { Link, useNavigate } from "react-router-dom";
-import "E:\\Coding content\\Real Estate App\\main\\src\\index.css";
 import { useSelector } from "react-redux";
 
 export default function Header() {
