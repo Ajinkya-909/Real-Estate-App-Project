@@ -40,7 +40,7 @@ export default function Search() {
         furnished: furnishedFromUrl === "true" ? true : false,
         offer: offerFromUrl === "true" ? true : false,
         sort: sortFromUrl || "created_at",
-        order: orderFromUrl || "desc",
+        order: orderFromUrl || "asc",
       });
     }
 
@@ -190,8 +190,8 @@ export default function Search() {
               id="sort_order"
               className="border rounded-lg p-3"
             >
-              <option value="regularPrice_desc">Price High to Low</option>
-              <option value="regularPrice_asc">Price Low to High</option>
+              <option value="regularPrize_desc">Price High to Low</option>
+              <option value="regularPrize_asc">Price Low to High</option>
               <option value="createdAt_desc">Latest</option>
               <option value="createdAt_asc">Oldest</option>
             </select>

@@ -30,19 +30,15 @@ export default function Slider() {
   const handleNext = () => {
     if (slides === images.length - 1) {
       setslides(0);
-      clearInterval(interval);
     } else {
       setslides(slides + 1);
-      clearInterval(interval);
     }
   };
   const handlePrevious = () => {
     if (slides < 0) {
       setslides(images.length - 1);
-      clearInterval(interval);
     } else {
       setslides(slides - 1);
-      clearInterval(interval);
     }
   };
   return (
@@ -114,7 +110,7 @@ export default function Slider() {
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center center",
             }}
-            className="p-9 rounded-lg max-500px:h-[50vh] max-1000px:w-[80vw] h-[calc(100vh/1.5)] w-[calc(100vw/2)] z-10 max-700px:p-0 object-contain transition  "
+            className="p-9 rounded-xlg max-500px:h-[50vh] max-1000px:w-[80vw] h-[calc(100vh/1.5)] w-[calc(100vw/2)] z-10 max-700px:p-0 object-contain transition  "
           ></div>
         </div>
       </div>

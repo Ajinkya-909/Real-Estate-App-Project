@@ -55,8 +55,12 @@ const listingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cerated_at: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  { Timestamp: true }
+  { timestamps: true }
 );
 
 const Listing = mongoose.model("Listing", listingSchema);

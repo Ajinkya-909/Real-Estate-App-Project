@@ -33,7 +33,6 @@ export default function Profile() {
   };
 
   const handleListingDelete = async (listingID) => {
-    console.log(listingID);
     confirm(`Are you sure you want to delete this listing`);
     try {
       const res = await fetch(`/api/listing/delete/${listingID}`, {
@@ -41,7 +40,6 @@ export default function Profile() {
       });
       const data = await res.json();
       if (data.success === false) {
-        console.log(data);
         setError(true);
         return;
       }
@@ -63,7 +61,7 @@ export default function Profile() {
             <img
               className="rounded-full object-cover"
               src={currentUser.avatar}
-              alt="Image"
+              alt="User Image"
             />
           </div>
           <div className="mx-auto">

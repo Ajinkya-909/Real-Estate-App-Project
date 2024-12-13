@@ -89,7 +89,7 @@ export default function Profile() {
         <img
           className="self-center rounded-full h-24 w-24 object-cover cursor-pointer"
           src={currentUser.avatar}
-          alt="photo"
+          alt="User Image"
         />
         <input
           type="text"
