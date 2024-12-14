@@ -9,7 +9,7 @@ export default function Profile() {
   const [ShowListing, setShowListing] = useState(false);
   const [Loading, setLoading] = useState(false);
   const [userListings, setuserListings] = useState([]);
-  const [Error, setError] = useState(false);
+  const [Error, setError] = useState({ state: false, msg: "" });
   const { currentUser } = useSelector((state) => state.user);
 
   const handleShowListing = async () => {
@@ -27,7 +27,7 @@ export default function Profile() {
       setLoading(false);
       setShowListing(true);
     } catch (error) {
-      setError(true);
+      setError({ state: true, msg: error.message });
       setLoading(false);
     }
   };
@@ -184,7 +184,7 @@ export default function Profile() {
           </button>
         </span>
         <p className="self-center text-red-700 font-bold text-base">
-          {Error ? "Error in showing listing" : ""}
+          {Error.state ? Error.msg : ""}
         </p>
       </div>
       {/* Background Image */}
