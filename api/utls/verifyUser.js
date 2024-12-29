@@ -11,3 +11,4 @@ export const verifyToken = (req, res, next) => {
     next();
   });
 };
+//tried to remove error condition
