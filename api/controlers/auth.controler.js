@@ -27,7 +27,10 @@ export const signin = async (req, res, next) => {
       return next(errorHandler(401, "Invalid Credentials"));
     }
     const token = jwt.sign({ id: validuser._id }, process.env.JWT_Secret);
-    res.cookie("token", token, { httpOnly: true }).status(200).json(validuser);
+    res
+      .cookie("access_token", token, { httpOnly: true })
+      .status(200)
+      .json(validuser);
   } catch (error) {
     next(error);
   }
@@ -39,7 +42,10 @@ export const google = async (req, res, next) => {
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_Secret);
       const { password: pass, ...rest } = user._doc;
-      res.cookie("token", token, { httpOnly: true }).status(200).json(rest);
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(200)
+        .json(rest);
     } else {
       const generatePassword = Math.random().toString(36).slice(-8);
       const hashedPassword = bcryptjs.hashSync(generatePassword, 10);
@@ -52,7 +58,10 @@ export const google = async (req, res, next) => {
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_Secret);
       const { password: pass, ...rest } = newUser._doc;
-      res.cookie("token", token, { httpOnly: true }).status(200).json(rest);
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(200)
+        .json(rest);
     }
   } catch (error) {
     next(error);
@@ -61,7 +70,7 @@ export const google = async (req, res, next) => {
 
 export const signout = (req, res, next) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("access_token");
     res.status(200).json("User has been logged out!");
   } catch (error) {
     next(error);
