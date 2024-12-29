@@ -50,7 +50,7 @@ export const deleteUser = async (req, res, next) => {
 };
 
 export const getListings = async (req, res, next) => {
-  if (req.params.id === req.user.id) {
+  if (req.params.id) {
     try {
       const listing = await Listing.find({ userRef: req.params.id });
       res.status(200).json(listing);
