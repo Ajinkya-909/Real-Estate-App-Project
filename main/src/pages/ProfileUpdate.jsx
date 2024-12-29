@@ -51,7 +51,6 @@ export default function Profile() {
   };
 
   const handleDelete = async () => {
-    confirm("Do you want to Delete Account?");
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
@@ -68,7 +67,6 @@ export default function Profile() {
   };
 
   const handleSignOut = async () => {
-    confirm("Do you want to Sign Out?");
     try {
       dispatch(signoutUserStart());
       const res = await fetch("api/auth/signout");
