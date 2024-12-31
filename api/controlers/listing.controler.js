@@ -15,7 +15,8 @@ export const deleteListing = async (req, res, next) => {
   if (!listing) {
     return next(errorHandler(404, "Listing not found"));
   }
-  if (req.params.id !== listing.userRef) {
+  console.log(req.body.currentUser._id, listing.userRef);
+  if (req.body.currentUser._id !== listing.userRef) {
     return next(errorHandler(401, "You can delete your own listing"));
   }
   try {
@@ -31,7 +32,8 @@ export const updateListing = async (req, res, next) => {
   if (!listing) {
     return next(errorHandler(404, "Listing not found"));
   }
-  if (req.params.id !== listing.userRef) {
+
+  if (req.body.userRef !== listing.userRef) {
     return next(errorHandler(401, "You can update your own listing"));
   }
 

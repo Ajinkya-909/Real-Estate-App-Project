@@ -107,8 +107,9 @@ export default function CreateListing() {
       });
       const data = await res.json();
       setloading(false);
-      if (data.sucecss === false) {
+      if (data.success === false) {
         seterror(data.message);
+        return;
       }
       navigate(`/listing/${param.listingId}`);
     } catch (error) {

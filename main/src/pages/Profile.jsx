@@ -34,16 +34,18 @@ export default function Profile() {
 
   const handleListingDelete = async (listingID) => {
     confirm(`Are you sure you want to delete this listing`);
+
     try {
       const res = await fetch(`/api/listing/delete/${listingID}`, {
         method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentUser }),
       });
       const data = await res.json();
       if (data.success === false) {
         setError(true);
         return;
       }
-
       setuserListings((prev) =>
         prev.filter((listing) => listing._id !== listingID)
       );
@@ -184,7 +186,7 @@ export default function Profile() {
           </button>
         </span>
         <p className="self-center text-red-700 font-bold text-base">
-          {Error ? "Error in Showing Listings" : ""}
+          {Error ? "Some Error Occured in Listings" : ""}
         </p>
       </div>
       {/* Background Image */}
