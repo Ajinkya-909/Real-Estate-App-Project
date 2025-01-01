@@ -61,7 +61,7 @@ export default function Profile() {
         <div className="flex max-700px:flex-col items-center h-max justify-around p-4 ">
           <div className="w-1/4 max-500px:w-3/4 flex justify-center items-center mx-auto">
             <img
-              className="rounded-full object-cover"
+              className="rounded-full border-spacing-2 border-white object-cover"
               src={currentUser.avatar}
               alt="User Image"
             />
