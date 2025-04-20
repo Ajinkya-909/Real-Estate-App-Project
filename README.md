@@ -20,5 +20,5 @@
 ## 📂 Installation & Setup  
 ### 1️⃣ Clone the Repository  
 ```sh
-git clone https://github.com/yourusername/RoyalEstates.git
-cd RoyalEstates
+git clone https://github.com/Ajinkya-909/Royal-Estates-App-Project.git
+cd Royal-Estates-App-Project
